@@ -29,7 +29,7 @@ class PolygonSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = ProviderPolygon
         geo_field = 'poly'
-        fields = ('polygon_name', 'price', 'provider_name', 'provider')
+        fields = ('id', 'polygon_name', 'price', 'provider_name', 'provider')
 
     def update(self, instance, validated_data):
         instance.polygon_name = validated_data.get(
