@@ -84,9 +84,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'mozio',
-        'USER':'ramesh',
-        'PASSWORD':'ram',
-        'HOST':'localhost',
+        'USER': 'ramesh',
+        'PASSWORD': 'ram',
+        'HOST': 'localhost',
     }
 }
 
