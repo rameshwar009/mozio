@@ -1,7 +1,8 @@
+from .models import Provider, ProviderPolygon
+from .helpers import geojson_format
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.views import APIView
-from .models import Provider, ProviderPolygon
 from . serializers import ProviderSerializer, PolygonSerializer
 
 
@@ -54,12 +55,6 @@ class ProviderUpdate(APIView):
 		return Response({'message':'Done'}, status=status.HTTP_200_OK)
 
 
-def geojson_format(data):
-	poly = data['poly']
-	obj = "POLYGON((" + data['poly'] +"))"
-	data['poly']=obj
-	return data
-
 
 class CreatePolygon(APIView):
 	model = ProviderPolygon
@@ -92,7 +87,6 @@ class PolygonUpdate(APIView):
 			return Response({'error':'ObjectDoesnotExist'},status=status.HTTP_400_BAD_REQUEST)
 
 	def put(self, request, pk):
-		import ipdb;ipdb.set_trace()
 		try:
 			polygon = ProviderPolygon.objects.get(id=pk)
 		except:
@@ -105,6 +99,14 @@ class PolygonUpdate(APIView):
 		if serializer.is_valid(raise_exception=True):
 			serializer.save()
 			return Response(serializer.data,status=status.HTTP_200_OK)
+
+	def delete(self, request, pk):
+		try:
+			polygon = ProviderPolygon.objects.get(id=pk)
+			polygon.delete()
+			return Response({'message':'Done'}, status=status.HTTP_200_OK)
+		except:
+			return Response({'error':'ObjectDoesnotExist'}, status=status.HTTP_400_BAD_REQUEST)
 	
 
 class PolygonSearch(APIView):

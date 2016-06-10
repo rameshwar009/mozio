@@ -1,6 +1,7 @@
-from rest_framework import serializers
 from .models import Provider, ProviderPolygon
+from rest_framework import serializers
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
+
 
 class ProviderSerializer(serializers.ModelSerializer):
 	
@@ -19,6 +20,7 @@ class ProviderSerializer(serializers.ModelSerializer):
 		instance.currency = validated_data.get('currency', instance.currency)
 		instance.save()
 		return instance
+
 
 class PolygonSerializer(GeoFeatureModelSerializer):
 	provider_name = serializers.SerializerMethodField()
